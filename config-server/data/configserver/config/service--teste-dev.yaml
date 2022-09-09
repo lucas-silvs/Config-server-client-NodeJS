@@ -1,0 +1,4 @@
+service:
+  name: teste-que-vem-do-config-server
+
+  version: 1.0.0
