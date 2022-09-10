@@ -1,4 +1,7 @@
+
 const client = require("cloud-config-client");
+
+const fs = require('fs');
 
 // uma das formar de carrega os dados do config-server
 
@@ -6,23 +9,30 @@ const client = require("cloud-config-client");
 var nomeServico;
 client.load({
     name: "service--teste", //nome da aplicação
-    profiles:['dev'], // spring profiles 
+    profiles: ['dev'], // spring profiles 
     endpoint: "http://localhost:8888", //URI do Config-Server
-    auth: {user: "developer", pass: "dummypassword"},
-    context: process.env
+    auth: { user: "developer", pass: "dummypassword" },
 }).then((config) => {
-    configLocal = config
-    // Look for a key
-    nomeServico = config.get("service.name");
-    console.log("const value1 = config.get(\"service.name\");: " + String(nomeServico))
 
-    // Using a prefix, this is equivalent to .get("this.is.another.key");
-    const value2 = config.get("service", "version")
-    console.log("const value2 = config.get(\"service\", \"version\");: " + String(value2))
-});
+    //utilizando o for each para pegar todas as configurações e printa-las
+    let listaConfig = [] 
+    config.forEach((chave, valor) => listaConfig.push(`${chave}=${valor}\n`))
+    listaConfig = listaConfig.toString().replace(/,/g, "")
+    try {
+        fs.writeFileSync('./.env',listaConfig);
+        // file written successfully
+    } catch (err) {
+        console.error(err);
+    }
 
 
-// Or
+
+    //config.forEach((chave, valor) => yaml.writeSync("config.yaml",String(chave) + ": " + String(valor)))
+    //config.forEach((chave, valor) => console.log(String(chave) + ": " + String(valor)))
+
+})
+
+
 
 // const config =  client.load({
 //     name: "service--teste", //nome da aplicação
