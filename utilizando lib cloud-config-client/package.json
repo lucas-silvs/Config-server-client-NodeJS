@@ -7,14 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "config": "node node-with-config-client.js",
     "start": "node client-utilizando-dotenv.js",
-    "agoravai": "npm run config && npm run start"
+    "loadconfig": "NODE_ENV=dev npm run config && npm run start" 
   },
   "author": "lucas.parkl@outlook.com",
   "license": "ISC",
   "dependencies": {
     "cloud-config-client": "^1.6.2",
-    "dotenv": "^16.0.2",
-    "js-yaml": "^3.14.1",
-    "node-yaml": "^4.0.1"
+    "dotenv": "^16.0.2"
   }
 }

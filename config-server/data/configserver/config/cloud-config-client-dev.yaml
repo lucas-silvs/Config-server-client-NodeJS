@@ -1,0 +1,3 @@
+SERVICE_NAME: service--teste
+CAMPO_TESTE: Teste
+SERVER_PORT: 3000
